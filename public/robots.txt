@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://childtherapist.in/sitemap.xml
