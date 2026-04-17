@@ -45,31 +45,53 @@ const Nav = () => {
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
+  const navBg = scrolled || menuOpen ? "rgba(255,253,251,0.97)" : "transparent";
+  const navBorder = scrolled || menuOpen ? `1px solid ${COLORS.sage}15` : "none";
   return (
-    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled ? "rgba(255,253,251,0.95)" : "transparent", backdropFilter: scrolled ? "blur(12px)" : "none", borderBottom: scrolled ? "1px solid rgba(90,125,106,0.1)" : "none", transition: "all 0.35s ease", padding: scrolled ? "12px 0" : "20px 0" }}>
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: navBg, backdropFilter: scrolled || menuOpen ? "blur(12px)" : "none", borderBottom: navBorder, transition: "all 0.35s ease", padding: scrolled ? "12px 0" : "20px 0" }}>
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{ width: 38, height: 38, borderRadius: 10, background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.coral})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🌱</div>
           <span style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 700, color: COLORS.sageDark }}>childtherapist<span style={{ color: COLORS.coral }}>.in</span></span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
-          {["How It Works", "Services", "Pricing", "About"].map((item) => (
-            <a key={item} href={`#${item.toLowerCase().replace(/\s/g, "")}`} style={{ textDecoration: "none", color: COLORS.charcoal, fontSize: 14, fontWeight: 500, fontFamily: "'Plus Jakarta Sans', sans-serif", opacity: 0.8, transition: "opacity 0.2s", display: window.innerWidth < 768 ? "none" : "block" }}
-              onMouseEnter={e => e.target.style.opacity = 1} onMouseLeave={e => e.target.style.opacity = 0.8}>{item}</a>
-          ))}
-          <a href="#screening" style={{ textDecoration: "none", background: COLORS.sage, color: "#fff", padding: "10px 22px", borderRadius: 99, fontSize: 14, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", transition: "all 0.2s", boxShadow: `0 2px 12px ${COLORS.sage}40` }}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: 28, marginRight: 8 }}>
+            {["How It Works", "Services", "Pricing", "About"].map((item) => (
+              <a key={item} href={`#${item.toLowerCase().replace(/\s/g, "")}`} style={{ textDecoration: "none", color: COLORS.charcoal, fontSize: 14, fontWeight: 500, fontFamily: "'Plus Jakarta Sans', sans-serif", opacity: 0.8, transition: "opacity 0.2s" }}
+                onMouseEnter={e => e.target.style.opacity = 1} onMouseLeave={e => e.target.style.opacity = 0.8}>{item}</a>
+            ))}
+          </div>
+          <a href="#screening" style={{ textDecoration: "none", background: COLORS.sage, color: "#fff", padding: "10px 22px", borderRadius: 99, fontSize: 14, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", transition: "all 0.2s", boxShadow: `0 2px 12px ${COLORS.sage}40`, whiteSpace: "nowrap" }}
             onMouseEnter={e => { e.target.style.background = COLORS.sageDark; e.target.style.transform = "translateY(-1px)"; }}
             onMouseLeave={e => { e.target.style.background = COLORS.sage; e.target.style.transform = "translateY(0)"; }}>
             Free Screening
           </a>
+          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu"
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 8, color: COLORS.charcoal }}>
+            <span style={{ display: "block", width: 22, height: 2, background: COLORS.charcoal, borderRadius: 2, transition: "all 0.3s", transform: menuOpen ? "rotate(45deg) translateY(7px)" : "none" }} />
+            <span style={{ display: "block", width: 22, height: 2, background: COLORS.charcoal, borderRadius: 2, margin: "5px 0", transition: "all 0.3s", opacity: menuOpen ? 0 : 1 }} />
+            <span style={{ display: "block", width: 22, height: 2, background: COLORS.charcoal, borderRadius: 2, transition: "all 0.3s", transform: menuOpen ? "rotate(-45deg) translateY(-7px)" : "none" }} />
+          </button>
         </div>
       </div>
+      {menuOpen && (
+        <div style={{ padding: "8px 24px 24px", maxWidth: 1120, margin: "0 auto" }}>
+          {["How It Works", "Services", "Pricing", "About"].map((item) => (
+            <a key={item} href={`#${item.toLowerCase().replace(/\s/g, "")}`} onClick={() => setMenuOpen(false)}
+              style={{ display: "block", textDecoration: "none", color: COLORS.charcoal, fontSize: 16, fontWeight: 500, fontFamily: "'Plus Jakarta Sans', sans-serif", padding: "14px 0", borderBottom: `1px solid ${COLORS.sage}10` }}>{item}</a>
+          ))}
+          <a href="#screening" onClick={() => setMenuOpen(false)}
+            style={{ display: "block", textDecoration: "none", background: COLORS.sage, color: "#fff", padding: "14px 24px", borderRadius: 99, fontSize: 15, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", textAlign: "center", marginTop: 16 }}>
+            Free Screening
+          </a>
+        </div>
+      )}
     </nav>
   );
 };
 
 const Hero = () => (
-  <section style={{ background: `linear-gradient(165deg, ${COLORS.warmWhite} 0%, ${COLORS.sageLight} 40%, ${COLORS.coralLight} 100%)`, paddingTop: 130, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
+  <section className="hero-section" style={{ background: `linear-gradient(165deg, ${COLORS.warmWhite} 0%, ${COLORS.sageLight} 40%, ${COLORS.coralLight} 100%)`, paddingTop: 130, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
     {/* Decorative shapes */}
     <div style={{ position: "absolute", top: 60, right: -60, width: 280, height: 280, borderRadius: "50%", background: `${COLORS.coral}08`, filter: "blur(40px)" }} />
     <div style={{ position: "absolute", bottom: -40, left: -80, width: 320, height: 320, borderRadius: "50%", background: `${COLORS.sage}08`, filter: "blur(50px)" }} />
@@ -105,7 +127,7 @@ const Hero = () => (
         </FadeIn>
 
         <FadeIn delay={0.3}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+          <div className="cta-buttons" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
             <a href="#screening" style={{ textDecoration: "none", background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.sageDark})`, color: "#fff", padding: "16px 36px", borderRadius: 99, fontSize: 16, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: `0 4px 20px ${COLORS.sage}40, 0 1px 3px rgba(0,0,0,0.1)`, transition: "all 0.25s", display: "inline-flex", alignItems: "center", gap: 8 }}
               onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = `0 8px 30px ${COLORS.sage}50`; }}
               onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = `0 4px 20px ${COLORS.sage}40`; }}>
@@ -120,7 +142,7 @@ const Hero = () => (
         </FadeIn>
 
         <FadeIn delay={0.45}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 28, marginTop: 48, flexWrap: "wrap" }}>
+          <div className="trust-badges" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 28, marginTop: 48, flexWrap: "wrap" }}>
             {[
               { icon: "🛡️", text: "All Therapists RCI-Registered" },
               { icon: "🤖", text: "AI-Powered Matching" },
@@ -169,7 +191,7 @@ const HowItWorks = () => (
         </div>
       </FadeIn>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+      <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
         {[
           {
             step: "01",
@@ -222,7 +244,7 @@ const Services = () => (
         </div>
       </FadeIn>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+      <div className="grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
         {[
           { icon: "🎯", title: "ADHD", desc: "Focus, impulse control & executive function support" },
           { icon: "🧩", title: "Autism Spectrum", desc: "Social skills, communication & sensory processing" },
@@ -272,7 +294,7 @@ const AIScreening = () => (
       </FadeIn>
 
       <FadeIn delay={0.2}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, marginBottom: 40, flexWrap: "wrap" }}>
+        <div className="screening-features" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, marginBottom: 40, flexWrap: "wrap" }}>
           {["✓ 100% Free", "✓ 5 Minutes", "✓ Instant Report", "✓ Confidential"].map((t, i) => (
             <span key={i} style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>{t}</span>
           ))}
@@ -293,7 +315,7 @@ const AIScreening = () => (
 const WhyUs = () => (
   <section id="about" style={{ background: COLORS.warmWhite, padding: "80px 0" }}>
     <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+      <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
         <FadeIn>
           <div>
             <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 13, fontWeight: 700, color: COLORS.coral, textTransform: "uppercase", letterSpacing: 2 }}>Why Choose Us</span>
@@ -358,7 +380,7 @@ const Pricing = () => {
           </div>
         </FadeIn>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, maxWidth: 960, margin: "0 auto" }}>
+        <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, maxWidth: 960, margin: "0 auto" }}>
           {[
             {
               name: "Single Session",
@@ -389,7 +411,7 @@ const Pricing = () => {
             },
           ].map((plan, i) => (
             <FadeIn key={i} delay={i * 0.12}>
-              <div style={{
+              <div className={plan.featured ? "pricing-featured" : ""} style={{
                 background: plan.featured ? `linear-gradient(145deg, ${COLORS.sageDark}, ${COLORS.sage})` : "#fff",
                 borderRadius: 22, padding: 32, position: "relative",
                 border: plan.featured ? "none" : "1px solid #f0eeeb",
@@ -500,7 +522,7 @@ const CTA = () => (
 const Footer = () => (
   <footer style={{ background: COLORS.charcoal, padding: "48px 0 28px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
     <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 40 }}>
+      <div className="grid-footer" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 40 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
             <div style={{ width: 34, height: 34, borderRadius: 9, background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.coral})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🌱</div>
@@ -525,7 +547,7 @@ const Footer = () => (
           </div>
         ))}
       </div>
-      <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 20, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div className="footer-bottom" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 20, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.25)" }}>© 2026 ChildTherapist.in. All rights reserved. Startup India Recognized.</span>
         <div style={{ display: "flex", gap: 16 }}>
           {["Instagram", "LinkedIn", "YouTube", "WhatsApp"].map((s, i) => (
