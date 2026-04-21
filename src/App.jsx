@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ScreeningForm from "./ScreeningForm";
 
 const COLORS = {
   sage: "#5a7d6a",
@@ -37,7 +38,7 @@ function FadeIn({ children, delay = 0, style = {} }) {
   );
 }
 
-const Nav = () => {
+const Nav = ({ onOpenScreening }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -61,11 +62,11 @@ const Nav = () => {
                 onMouseEnter={e => e.target.style.opacity = 1} onMouseLeave={e => e.target.style.opacity = 0.8}>{item}</a>
             ))}
           </div>
-          <a href="#screening" style={{ textDecoration: "none", background: COLORS.sage, color: "#fff", padding: "10px 22px", borderRadius: 99, fontSize: 14, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", transition: "all 0.2s", boxShadow: `0 2px 12px ${COLORS.sage}40`, whiteSpace: "nowrap" }}
-            onMouseEnter={e => { e.target.style.background = COLORS.sageDark; e.target.style.transform = "translateY(-1px)"; }}
-            onMouseLeave={e => { e.target.style.background = COLORS.sage; e.target.style.transform = "translateY(0)"; }}>
+          <button onClick={onOpenScreening} style={{ background: COLORS.sage, color: "#fff", padding: "10px 22px", borderRadius: 99, fontSize: 14, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", transition: "all 0.2s", boxShadow: `0 2px 12px ${COLORS.sage}40`, whiteSpace: "nowrap", border: "none", cursor: "pointer" }}
+            onMouseEnter={e => { e.currentTarget.style.background = COLORS.sageDark; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = COLORS.sage; e.currentTarget.style.transform = "translateY(0)"; }}>
             Free Screening
-          </a>
+          </button>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu"
             style={{ background: "none", border: "none", cursor: "pointer", padding: 8, color: COLORS.charcoal }}>
             <span style={{ display: "block", width: 22, height: 2, background: COLORS.charcoal, borderRadius: 2, transition: "all 0.3s", transform: menuOpen ? "rotate(45deg) translateY(7px)" : "none" }} />
@@ -80,17 +81,17 @@ const Nav = () => {
             <a key={item} href={`#${item.toLowerCase().replace(/\s/g, "")}`} onClick={() => setMenuOpen(false)}
               style={{ display: "block", textDecoration: "none", color: COLORS.charcoal, fontSize: 16, fontWeight: 500, fontFamily: "'Plus Jakarta Sans', sans-serif", padding: "14px 0", borderBottom: `1px solid ${COLORS.sage}10` }}>{item}</a>
           ))}
-          <a href="#screening" onClick={() => setMenuOpen(false)}
-            style={{ display: "block", textDecoration: "none", background: COLORS.sage, color: "#fff", padding: "14px 24px", borderRadius: 99, fontSize: 15, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", textAlign: "center", marginTop: 16 }}>
+          <button onClick={() => { setMenuOpen(false); onOpenScreening(); }}
+            style={{ display: "block", width: "100%", background: COLORS.sage, color: "#fff", padding: "14px 24px", borderRadius: 99, fontSize: 15, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", textAlign: "center", marginTop: 16, border: "none", cursor: "pointer" }}>
             Free Screening
-          </a>
+          </button>
         </div>
       )}
     </nav>
   );
 };
 
-const Hero = () => (
+const Hero = ({ onOpenScreening }) => (
   <section className="hero-section" style={{ background: `linear-gradient(165deg, ${COLORS.warmWhite} 0%, ${COLORS.sageLight} 40%, ${COLORS.coralLight} 100%)`, paddingTop: 130, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
     {/* Decorative shapes */}
     <div style={{ position: "absolute", top: 60, right: -60, width: 280, height: 280, borderRadius: "50%", background: `${COLORS.coral}08`, filter: "blur(40px)" }} />
@@ -128,11 +129,11 @@ const Hero = () => (
 
         <FadeIn delay={0.3}>
           <div className="cta-buttons" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
-            <a href="#screening" style={{ textDecoration: "none", background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.sageDark})`, color: "#fff", padding: "16px 36px", borderRadius: 99, fontSize: 16, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: `0 4px 20px ${COLORS.sage}40, 0 1px 3px rgba(0,0,0,0.1)`, transition: "all 0.25s", display: "inline-flex", alignItems: "center", gap: 8 }}
-              onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = `0 8px 30px ${COLORS.sage}50`; }}
-              onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = `0 4px 20px ${COLORS.sage}40`; }}>
+            <button onClick={onOpenScreening} style={{ background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.sageDark})`, color: "#fff", padding: "16px 36px", borderRadius: 99, fontSize: 16, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: `0 4px 20px ${COLORS.sage}40, 0 1px 3px rgba(0,0,0,0.1)`, transition: "all 0.25s", display: "inline-flex", alignItems: "center", gap: 8, border: "none", cursor: "pointer" }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 30px ${COLORS.sage}50`; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = `0 4px 20px ${COLORS.sage}40`; }}>
               Take Free Screening →
-            </a>
+            </button>
             <a href="#howitworks" style={{ textDecoration: "none", background: "#fff", color: COLORS.sageDark, padding: "16px 32px", borderRadius: 99, fontSize: 16, fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", border: `2px solid ${COLORS.sage}30`, transition: "all 0.25s" }}
               onMouseEnter={e => { e.target.style.borderColor = COLORS.sage; e.target.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { e.target.style.borderColor = `${COLORS.sage}30`; e.target.style.transform = "translateY(0)"; }}>
@@ -270,7 +271,7 @@ const Services = () => (
   </section>
 );
 
-const AIScreening = () => (
+const AIScreening = ({ onOpenScreening }) => (
   <section id="screening" style={{ background: `linear-gradient(135deg, ${COLORS.sageDark} 0%, ${COLORS.sage} 50%, #4a7d6a 100%)`, padding: "80px 0", position: "relative", overflow: "hidden" }}>
     <div style={{ position: "absolute", top: -50, right: -50, width: 200, height: 200, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.08)" }} />
     <div style={{ position: "absolute", bottom: -80, left: -80, width: 300, height: 300, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.05)" }} />
@@ -302,11 +303,11 @@ const AIScreening = () => (
       </FadeIn>
 
       <FadeIn delay={0.3}>
-        <a href="#" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 10, background: "#fff", color: COLORS.sageDark, padding: "18px 44px", borderRadius: 99, fontSize: 17, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: "0 4px 24px rgba(0,0,0,0.15)", transition: "all 0.25s" }}
-          onMouseEnter={e => { e.target.style.transform = "translateY(-2px) scale(1.02)"; e.target.style.boxShadow = "0 8px 36px rgba(0,0,0,0.2)"; }}
-          onMouseLeave={e => { e.target.style.transform = "translateY(0) scale(1)"; e.target.style.boxShadow = "0 4px 24px rgba(0,0,0,0.15)"; }}>
+        <button onClick={onOpenScreening} style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#fff", color: COLORS.sageDark, padding: "18px 44px", borderRadius: 99, fontSize: 17, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: "0 4px 24px rgba(0,0,0,0.15)", transition: "all 0.25s", border: "none", cursor: "pointer" }}
+          onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; e.currentTarget.style.boxShadow = "0 8px 36px rgba(0,0,0,0.2)"; }}
+          onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.15)"; }}>
           Start Free Screening Now
-        </a>
+        </button>
       </FadeIn>
     </div>
   </section>
@@ -494,7 +495,7 @@ const FAQ = () => {
   );
 };
 
-const CTA = () => (
+const CTA = ({ onOpenScreening }) => (
   <section style={{ background: `linear-gradient(135deg, ${COLORS.charcoal} 0%, #1a2526 100%)`, padding: "80px 0", position: "relative", overflow: "hidden" }}>
     <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 500, height: 500, borderRadius: "50%", background: `${COLORS.sage}08`, filter: "blur(80px)" }} />
     <div style={{ maxWidth: 700, margin: "0 auto", padding: "0 24px", textAlign: "center", position: "relative" }}>
@@ -505,11 +506,11 @@ const CTA = () => (
         <p style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, margin: "0 0 36px" }}>
           Take the first step today. Our free AI screening takes just 5 minutes and can change everything.
         </p>
-        <a href="#" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 10, background: `linear-gradient(135deg, ${COLORS.coral}, #d46a4f)`, color: "#fff", padding: "18px 44px", borderRadius: 99, fontSize: 17, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: `0 4px 24px ${COLORS.coral}40`, transition: "all 0.25s" }}
-          onMouseEnter={e => { e.target.style.transform = "translateY(-2px) scale(1.02)"; }}
-          onMouseLeave={e => { e.target.style.transform = "translateY(0) scale(1)"; }}>
+        <button onClick={onOpenScreening} style={{ display: "inline-flex", alignItems: "center", gap: 10, background: `linear-gradient(135deg, ${COLORS.coral}, #d46a4f)`, color: "#fff", padding: "18px 44px", borderRadius: 99, fontSize: 17, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: `0 4px 24px ${COLORS.coral}40`, transition: "all 0.25s", border: "none", cursor: "pointer" }}
+          onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; }}
+          onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; }}>
           Take Free Screening →
-        </a>
+        </button>
         <div style={{ marginTop: 28, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
           <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.4)" }}>Or call us: </span>
           <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.7)", fontWeight: 600 }}>+91 98XX XXX XXX</span>
@@ -562,19 +563,24 @@ const Footer = () => (
 );
 
 export default function LandingPage() {
+  const [screeningOpen, setScreeningOpen] = useState(false);
+  const openScreening = () => setScreeningOpen(true);
+  const closeScreening = () => setScreeningOpen(false);
+
   return (
     <div>
-      <Nav />
-      <Hero />
+      <Nav onOpenScreening={openScreening} />
+      <Hero onOpenScreening={openScreening} />
       <Stats />
       <HowItWorks />
       <Services />
-      <AIScreening />
+      <AIScreening onOpenScreening={openScreening} />
       <WhyUs />
       <Pricing />
       <FAQ />
-      <CTA />
+      <CTA onOpenScreening={openScreening} />
       <Footer />
+      {screeningOpen && <ScreeningForm onClose={closeScreening} />}
     </div>
   );
 }
