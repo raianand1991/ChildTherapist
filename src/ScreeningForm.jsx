@@ -13,18 +13,18 @@ export const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 export const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
 
 const COLORS = {
-  sage: "#5a7d6a",
-  sageDark: "#3d5a4a",
-  sageLight: "#e8f0eb",
-  coral: "#e07a5f",
-  coralLight: "#fdf0ec",
-  cream: "#faf8f5",
-  warmWhite: "#fffdfb",
-  charcoal: "#2d3436",
-  textMuted: "#6b7b7d",
-  textLight: "#8a9a9c",
-  gold: "#d4a853",
-  goldLight: "#fdf6e8",
+  sage: "#22b5a8",
+  sageDark: "#1a8f85",
+  sageLight: "#e0f6f4",
+  coral: "#e8437e",
+  coralLight: "#fde8f1",
+  cream: "#f4f7fb",
+  warmWhite: "#f8fafc",
+  charcoal: "#1e3d6e",
+  textMuted: "#5a6e8a",
+  textLight: "#8a9bb5",
+  gold: "#f5a623",
+  goldLight: "#fef3e2",
 };
 
 const QUESTIONS = [

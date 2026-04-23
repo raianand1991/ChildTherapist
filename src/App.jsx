@@ -2,18 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import ScreeningForm from "./ScreeningForm";
 
 const COLORS = {
-  sage: "#5a7d6a",
-  sageDark: "#3d5a4a",
-  sageLight: "#e8f0eb",
-  coral: "#e07a5f",
-  coralLight: "#fdf0ec",
-  cream: "#faf8f5",
-  warmWhite: "#fffdfb",
-  charcoal: "#2d3436",
-  textMuted: "#6b7b7d",
-  textLight: "#8a9a9c",
-  gold: "#d4a853",
-  goldLight: "#fdf6e8",
+  sage: "#22b5a8",        // logo teal
+  sageDark: "#1a8f85",    // dark teal
+  sageLight: "#e0f6f4",   // light teal bg
+  coral: "#e8437e",       // logo hot pink
+  coralLight: "#fde8f1",  // light pink bg
+  cream: "#f4f7fb",       // card background
+  warmWhite: "#f8fafc",   // section alternate bg
+  charcoal: "#1e3d6e",    // navy dark text
+  textMuted: "#5a6e8a",   // muted text
+  textLight: "#8a9bb5",   // light text
+  gold: "#f5a623",        // amber accent
+  goldLight: "#fef3e2",   // light amber
 };
 
 function useInView(threshold = 0.15) {
@@ -41,19 +41,26 @@ function FadeIn({ children, delay = 0, style = {} }) {
 const Nav = ({ onOpenScreening }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  const navBg = scrolled || menuOpen ? "rgba(255,253,251,0.97)" : "transparent";
-  const navBorder = scrolled || menuOpen ? `1px solid ${COLORS.sage}15` : "none";
+  const navBg = scrolled || menuOpen ? "rgba(255,255,255,0.97)" : "transparent";
+  const navBorder = scrolled || menuOpen ? `1px solid ${COLORS.sage}20` : "none";
   return (
-    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: navBg, backdropFilter: scrolled || menuOpen ? "blur(12px)" : "none", borderBottom: navBorder, transition: "all 0.35s ease", padding: scrolled ? "12px 0" : "20px 0" }}>
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: navBg, backdropFilter: scrolled || menuOpen ? "blur(16px)" : "none", borderBottom: navBorder, transition: "all 0.35s ease", padding: scrolled ? "10px 0" : "18px 0" }}>
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 38, height: 38, borderRadius: 10, background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.coral})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🌱</div>
-          <span style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 700, color: COLORS.sageDark }}>childtherapist<span style={{ color: COLORS.coral }}>.in</span></span>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {!logoError ? (
+            <img src="/logo.png" alt="childtherapist.in" height={48} style={{ objectFit: "contain", display: "block" }} onError={() => setLogoError(true)} />
+          ) : (
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ width: 38, height: 38, borderRadius: 10, background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.coral})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🌱</div>
+              <span style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 700, color: COLORS.charcoal }}>childtherapist<span style={{ color: COLORS.coral }}>.in</span></span>
+            </div>
+          )}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: 28, marginRight: 8 }}>
@@ -92,7 +99,7 @@ const Nav = ({ onOpenScreening }) => {
 };
 
 const Hero = ({ onOpenScreening }) => (
-  <section className="hero-section" style={{ background: `linear-gradient(165deg, ${COLORS.warmWhite} 0%, ${COLORS.sageLight} 40%, ${COLORS.coralLight} 100%)`, paddingTop: 130, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
+  <section className="hero-section" style={{ background: "linear-gradient(160deg, #ffffff 0%, #f0fffe 45%, #fff2f8 100%)", paddingTop: 130, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
     {/* Decorative shapes */}
     <div style={{ position: "absolute", top: 60, right: -60, width: 280, height: 280, borderRadius: "50%", background: `${COLORS.coral}08`, filter: "blur(40px)" }} />
     <div style={{ position: "absolute", bottom: -40, left: -80, width: 320, height: 320, borderRadius: "50%", background: `${COLORS.sage}08`, filter: "blur(50px)" }} />
@@ -272,7 +279,7 @@ const Services = () => (
 );
 
 const AIScreening = ({ onOpenScreening }) => (
-  <section id="screening" style={{ background: `linear-gradient(135deg, ${COLORS.sageDark} 0%, ${COLORS.sage} 50%, #4a7d6a 100%)`, padding: "80px 0", position: "relative", overflow: "hidden" }}>
+  <section id="screening" style={{ background: `linear-gradient(135deg, ${COLORS.sageDark} 0%, ${COLORS.sage} 50%, #1aada5 100%)`, padding: "80px 0", position: "relative", overflow: "hidden" }}>
     <div style={{ position: "absolute", top: -50, right: -50, width: 200, height: 200, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.08)" }} />
     <div style={{ position: "absolute", bottom: -80, left: -80, width: 300, height: 300, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.05)" }} />
     <div style={{ position: "absolute", top: "50%", right: "10%", width: 6, height: 6, borderRadius: "50%", background: COLORS.coral, opacity: 0.6 }} />
@@ -496,7 +503,7 @@ const FAQ = () => {
 };
 
 const CTA = ({ onOpenScreening }) => (
-  <section style={{ background: `linear-gradient(135deg, ${COLORS.charcoal} 0%, #1a2526 100%)`, padding: "80px 0", position: "relative", overflow: "hidden" }}>
+  <section style={{ background: `linear-gradient(135deg, ${COLORS.charcoal} 0%, #0f1d35 100%)`, padding: "80px 0", position: "relative", overflow: "hidden" }}>
     <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 500, height: 500, borderRadius: "50%", background: `${COLORS.sage}08`, filter: "blur(80px)" }} />
     <div style={{ maxWidth: 700, margin: "0 auto", padding: "0 24px", textAlign: "center", position: "relative" }}>
       <FadeIn>
