@@ -532,9 +532,10 @@ const Footer = () => (
     <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px" }}>
       <div className="grid-footer" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 40 }}>
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-            <div style={{ width: 34, height: 34, borderRadius: 9, background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.coral})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🌱</div>
-            <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 700, color: "#fff" }}>childtherapist.in</span>
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "8px 10px", display: "inline-block" }}>
+              <img src="/logo.png" alt="childtherapist.in" height={90} style={{ objectFit: "contain", display: "block" }} />
+            </div>
           </div>
           <p style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.7, maxWidth: 280 }}>
             India's first AI-powered child therapy platform. Connecting families with RCI-registered therapists for compassionate, expert mental health care.
