@@ -50,11 +50,11 @@ const Nav = ({ onOpenScreening }) => {
   const navBg = scrolled || menuOpen ? "rgba(255,255,255,0.97)" : "transparent";
   const navBorder = scrolled || menuOpen ? `1px solid ${COLORS.sage}20` : "none";
   return (
-    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: navBg, backdropFilter: scrolled || menuOpen ? "blur(16px)" : "none", borderBottom: navBorder, transition: "all 0.35s ease", padding: scrolled ? "10px 0" : "18px 0" }}>
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: navBg, backdropFilter: scrolled || menuOpen ? "blur(16px)" : "none", borderBottom: navBorder, transition: "all 0.35s ease", padding: scrolled ? "4px 0" : "6px 0" }}>
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center" }}>
           {!logoError ? (
-            <img src="/logo.png" alt="childtherapist.in" height={72} style={{ objectFit: "contain", display: "block" }} onError={() => setLogoError(true)} />
+            <img src="/logo.png" alt="childtherapist.in" height={110} style={{ objectFit: "contain", display: "block" }} onError={() => setLogoError(true)} />
           ) : (
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 38, height: 38, borderRadius: 10, background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.coral})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🌱</div>
@@ -99,7 +99,7 @@ const Nav = ({ onOpenScreening }) => {
 };
 
 const Hero = ({ onOpenScreening }) => (
-  <section className="hero-section" style={{ background: "linear-gradient(160deg, #ffffff 0%, #f0fffe 45%, #fff2f8 100%)", paddingTop: 130, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
+  <section className="hero-section" style={{ background: "linear-gradient(160deg, #ffffff 0%, #f0fffe 45%, #fff2f8 100%)", paddingTop: 150, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
     {/* Decorative shapes */}
     <div style={{ position: "absolute", top: 60, right: -60, width: 280, height: 280, borderRadius: "50%", background: `${COLORS.coral}08`, filter: "blur(40px)" }} />
     <div style={{ position: "absolute", bottom: -40, left: -80, width: 320, height: 320, borderRadius: "50%", background: `${COLORS.sage}08`, filter: "blur(50px)" }} />
