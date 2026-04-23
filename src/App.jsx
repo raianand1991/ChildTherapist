@@ -54,7 +54,7 @@ const Nav = ({ onOpenScreening }) => {
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center" }}>
           {!logoError ? (
-            <img src="/logo.png" alt="childtherapist.in" height={48} style={{ objectFit: "contain", display: "block" }} onError={() => setLogoError(true)} />
+            <img src="/logo.png" alt="childtherapist.in" height={72} style={{ objectFit: "contain", display: "block" }} onError={() => setLogoError(true)} />
           ) : (
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 38, height: 38, borderRadius: 10, background: `linear-gradient(135deg, ${COLORS.sage}, ${COLORS.coral})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🌱</div>
